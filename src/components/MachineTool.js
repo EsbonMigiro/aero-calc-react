@@ -24,7 +24,7 @@ function MachineTool() {
         e.preventDefault();
         const { frequency, mass, amplitude, force } = formData;
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/machine_tool?frequency=${frequency}&mass=${mass}&amplitude=${amplitude}&force=${force}`);
+            const response = await axios.get(`https://aerospace-render.onrender.com/machine_tool?frequency=${frequency}&mass=${mass}&amplitude=${amplitude}&force=${force}`);
             setResult(response.data.result);
             setError(null);
         } catch (error) {
