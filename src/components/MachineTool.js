@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS styles
 
-function MachineTool() {
+export function MachineTool() {
     const [formData, setFormData] = useState({
         'frequency': '',
         'mass': '',
@@ -11,6 +11,7 @@ function MachineTool() {
     });
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
+    const[isLoading, setIsloading] = useState(false)
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,23 +23,38 @@ function MachineTool() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsloading(true)
+        setResult(null)
         const { frequency, mass, amplitude, force } = formData;
         try {
             const response = await axios.get(`https://aerospace-render.onrender.com/machine_tool?frequency=${frequency}&mass=${mass}&amplitude=${amplitude}&force=${force}`);
+            setIsloading(false)
             setResult(response.data.result);
             setError(null);
         } catch (error) {
+            setIsloading(false)
             setResult(null);
             setError(error.response ? error.response.data.error : 'An error occurred');
         }
     };
 
     useEffect(() => {
-        console.log(result);
+       
     }, [result]);
 
     return (
         <div className="container mx-auto p-4">
+
+        {isLoading ? ( 
+            <>
+            <p className='p-2 text-green-500'>solving...</p>
+                <span className="loading loading-dots loading-lg p-2" ></span>
+                </>
+            ) : null    
+            }
+
+
+
     {error ? <div className="text-blue-500 mb-4">{error}</div> : result && (
                 <div className="border p-4 rounded">
                    <h1 className="text-primary  p-2 rounded">Solutions</h1>
@@ -118,4 +134,4 @@ function MachineTool() {
     );
 }
 
-export default MachineTool;
+

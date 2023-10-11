@@ -37,3 +37,14 @@ code {
     display: none;
   }
 }
+
+.loading-loading{
+  width: 20px;
+  height: 20px;
+  background-color: green;
+}
+
+.notfoundpage{
+  width: 100px;
+  height: 70px;
+}

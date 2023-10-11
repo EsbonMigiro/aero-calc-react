@@ -1,17 +1,17 @@
 import React from 'react';
-import MachineTool from './MachineTool';
+// import MachineTool from './MachineTool';
 import Footer from './Elements/Footer';
 import 'tailwindcss/tailwind.css'; // Make sure to import Tailwind CSS styles
-import NavigationBar from './Elements/NavigationBar';
-
+import {NavigationBar} from './Elements/NavigationBar';
+import { Routing } from '../Routing';
 
 function Layout() {
   return (
     <div className="overflow-hidden"> {/* Apply the 'overflow-hidden' class here */}
      <NavigationBar></NavigationBar>
    
-    <MachineTool />
-    
+    {/* <MachineTool /> */}
+    <Routing></Routing>
     <Footer />
 
     
