@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS styles
 
-export function Machine() {
+export function MachineCantBeam() {
     const [formData, setFormData] = useState({
-        'frequency': '',
-        'mass': '',
-        'amplitude': '',
-        'force': ''
+        'machineMass': '',
+        'cantileverBeamLength': '',
+        'elasticModulus': '',
+        'areaMoment': ''
     });
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
@@ -25,11 +25,9 @@ export function Machine() {
         e.preventDefault();
         setIsloading(true)
         setResult(null)
-        const { frequency, mass, amplitude, force } = formData;
-        
+        const { machineMass, cantileverBeamLength, elasticModulus, areaMoment } = formData;
         try {
-            //https://aerospace-render.onrender.com
-            const response = await axios.get(`https://aerospace-render.onrender.com/machine_tool?frequency=${frequency}&mass=${mass}&amplitude=${amplitude}&force=${force}`);
+            const response = await axios.get(`https://aerospace-render.onrender.com/cantilever/?machineMass=${machineMass}&cantileverBeamLength=${cantileverBeamLength}&elasticModulus=${elasticModulus}&areaMoment=${areaMoment}`);
             setIsloading(false)
             setResult(response.data.result);
             setError(null);
@@ -61,10 +59,8 @@ export function Machine() {
                 <div className="border p-4 rounded">
                    <h1 className="text-primary  p-2 rounded">Solutions</h1>
 
-                    <div>Damper ratio = {result.Df}</div>
-                    <div>Natural frequency = {result.Wn} rad/s</div>
+                  
                     <div>Stiffness = {result.K} N/m</div>
-                    <div>Damping Coefficient = {result.C}</div>
                 </div>
             )}
 
@@ -72,70 +68,67 @@ export function Machine() {
 
            <form onSubmit={handleSubmit} className="mb-4">
     <h2 className="text-2xl font-semibold mb-4">EAR 411</h2>
-    <h4 className="text-white-900 p-4"> Machine tool mounted on elastic foundation modeled as spring and viscous damper in parallel</h4>
+    <h4 className="text-white-900 p-4"> Machine Attached to the End of Cantilever Beam</h4>
     <div className="mb-4">
-        <label htmlFor='frequency' className="block text-sm font-medium text-gray-600 mb-1">Frequency Hz</label>
+        <label htmlFor='machineMass' className="block text-sm font-medium text-gray-600 mb-1">machineMass in kg</label>
         <input
             type='number'
-            name='frequency'
-            value={formData.frequency}
+            name='machineMass'
+            value={formData.machineMass}
             onChange={handleChange}
-            id='frequency'
+            id='machineMass'
             className="input input-bordered input-primary w-full max-w-xs"
-            placeholder="Frequency"
+            placeholder="machineMass"
             required
         />
     </div>
     <div className="mb-4">
-        <label htmlFor='mass' className="block text-sm font-medium text-gray-600 mb-1">Mass in kg</label>
+        <label htmlFor='cantileverBeamLength' className="block text-sm font-medium text-gray-600 mb-1">cantileverBeamLength</label>
         <input
             type="number"
-            name='mass'
-            value={formData.mass}
+            name='cantileverBeamLength'
+            value={formData.cantileverBeamLength}
             onChange={handleChange}
-            id='mass'
+            id='cantileverBeamLength'
             className="input input-bordered input-primary w-full max-w-xs"
-            placeholder="Mass"
+            placeholder="cantileverBeamLength"
             required
         />
     </div>
     <div className="mb-4">
-        <label htmlFor='amplitude' className="block text-sm font-medium text-gray-600 mb-1">Amplitude in m</label>
+        <label htmlFor='elasticModulus' className="block text-sm font-medium text-gray-600 mb-1">elasticModulus</label>
         <input
             type='number'
-            name='amplitude'
-            value={formData.amplitude}
+            name='elasticModulus'
+            value={formData.elasticModulus}
             onChange={handleChange}
-            id='amplitude'
+            id='elasticModulus'
             className="input input-bordered input-primary w-full max-w-xs"
-            placeholder="Amplitude in m"
+            placeholder="200e9"
             required
         />
     </div>
     <div className="mb-4">
-        <label htmlFor='force' className="block text-sm font-medium text-gray-600 mb-1">Force N</label>
+        <label htmlFor='areaMoment' className="block text-sm font-medium text-gray-600 mb-1">areaMoment</label>
         <input
             type='number'
-            name='force'
-            value={formData.force}
+            name='areaMoment'
+            value={formData.areaMoment}
             onChange={handleChange}
-            id='force'
+            id='areaMoment'
             className="input input-bordered input-primary w-full max-w-xs"
-            placeholder="Force"
+            placeholder="as 1.8e-5"
             required
         />
     </div>
-   
     <button type='submit' className="btn btn-outline btn-success">Solve</button>
    <div>
    <span className="loading loading-ball loading-lg my-4" ></span>
    </div>
-   
 </form>
-     {result &&<h3 className='text-green-600'>Sroll up to see the solution</h3>} 
-    
- 
-          
+{result &&<h3 className='text-green-600'>Sroll up to see the solution</h3>} 
+
+           
         </div>
     );
 }

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS styles
 
-export function Machine() {
+export function AircraftLandingCarrier() {
     const [formData, setFormData] = useState({
-        'frequency': '',
-        'mass': '',
-        'amplitude': '',
-        'force': ''
+        'aircraftWeight': '',
+        'aircraftDecceleration': '',
+        'fuselageSectionWeight': '',
+        'touchDownSpeed': ''
     });
     const [result, setResult] = useState(null);
     const [error, setError] = useState(null);
@@ -25,11 +25,9 @@ export function Machine() {
         e.preventDefault();
         setIsloading(true)
         setResult(null)
-        const { frequency, mass, amplitude, force } = formData;
-        
+        const { aircraftWeight, aircraftDecceleration, fuselageSectionWeight, touchDownSpeed } = formData;
         try {
-            //https://aerospace-render.onrender.com
-            const response = await axios.get(`https://aerospace-render.onrender.com/machine_tool?frequency=${frequency}&mass=${mass}&amplitude=${amplitude}&force=${force}`);
+            const response = await axios.get(`https://aerospace-render.onrender.com/jetcarrier/?aircraftWeight=${aircraftWeight}&aircraftDecceleration=${aircraftDecceleration}&fuselageSectionWeight=${fuselageSectionWeight}&touchDownSpeed=${touchDownSpeed}`);
             setIsloading(false)
             setResult(response.data.result);
             setError(null);
@@ -61,81 +59,80 @@ export function Machine() {
                 <div className="border p-4 rounded">
                    <h1 className="text-primary  p-2 rounded">Solutions</h1>
 
-                    <div>Damper ratio = {result.Df}</div>
-                    <div>Natural frequency = {result.Wn} rad/s</div>
-                    <div>Stiffness = {result.K} N/m</div>
-                    <div>Damping Coefficient = {result.C}</div>
+                   <div>Tension on cable = { result.T } N</div>
+                    <div>Load on structure = { result.P } N</div>
+                    <div>Force N = { result.N } N </div>
+                    <div>Force S = { result.S } N</div>
+                    <div>Length covered = { result.D }</div>
+
                 </div>
             )}
 
 
 
            <form onSubmit={handleSubmit} className="mb-4">
-    <h2 className="text-2xl font-semibold mb-4">EAR 411</h2>
-    <h4 className="text-white-900 p-4"> Machine tool mounted on elastic foundation modeled as spring and viscous damper in parallel</h4>
+    <h2 className="text-2xl font-semibold mb-4">EAR 409</h2>
+    <h4 className="text-white-900 p-4"> Aircraft Landing On the Carrier</h4>
+    <h5>You can use ex as  *10^x</h5>
     <div className="mb-4">
-        <label htmlFor='frequency' className="block text-sm font-medium text-gray-600 mb-1">Frequency Hz</label>
+        <label htmlFor='aircraftWeight' className="block text-sm font-medium text-gray-600 mb-1">aircraftWeight in N</label>
         <input
             type='number'
-            name='frequency'
-            value={formData.frequency}
+            name='aircraftWeight'
+            value={formData.aircraftWeight}
             onChange={handleChange}
-            id='frequency'
+            id='aircraftWeight'
             className="input input-bordered input-primary w-full max-w-xs"
-            placeholder="Frequency"
+            placeholder="aircraft Weight in N"
             required
         />
     </div>
     <div className="mb-4">
-        <label htmlFor='mass' className="block text-sm font-medium text-gray-600 mb-1">Mass in kg</label>
+        <label htmlFor='aircraftDecceleration' className="block text-sm font-medium text-gray-600 mb-1">aircraftDecceleration g</label>
         <input
             type="number"
-            name='mass'
-            value={formData.mass}
+            name='aircraftDecceleration'
+            value={formData.aircraftDecceleration}
             onChange={handleChange}
-            id='mass'
+            id='aircraftDecceleration'
             className="input input-bordered input-primary w-full max-w-xs"
-            placeholder="Mass"
+            placeholder="aircraft Decceleration in g"
             required
         />
     </div>
     <div className="mb-4">
-        <label htmlFor='amplitude' className="block text-sm font-medium text-gray-600 mb-1">Amplitude in m</label>
+        <label htmlFor='fuselageSectionWeight' className="block text-sm font-medium text-gray-600 mb-1">fuselageSectionWeight in N</label>
         <input
             type='number'
-            name='amplitude'
-            value={formData.amplitude}
+            name='fuselageSectionWeight'
+            value={formData.fuselageSectionWeight}
             onChange={handleChange}
-            id='amplitude'
+            id='fuselageSectionWeight'
             className="input input-bordered input-primary w-full max-w-xs"
-            placeholder="Amplitude in m"
+            placeholder="fuselageSectionWeight"
             required
         />
     </div>
     <div className="mb-4">
-        <label htmlFor='force' className="block text-sm font-medium text-gray-600 mb-1">Force N</label>
+        <label htmlFor='touchDownSpeed' className="block text-sm font-medium text-gray-600 mb-1">TouchDownSpeed in m/s</label>
         <input
             type='number'
-            name='force'
-            value={formData.force}
+            name='touchDownSpeed'
+            value={formData.touchDownSpeed}
             onChange={handleChange}
-            id='force'
+            id='touchDownSpeed'
             className="input input-bordered input-primary w-full max-w-xs"
-            placeholder="Force"
+            placeholder="touchDownSpeed in m/s"
             required
         />
     </div>
-   
     <button type='submit' className="btn btn-outline btn-success">Solve</button>
    <div>
    <span className="loading loading-ball loading-lg my-4" ></span>
    </div>
-   
 </form>
-     {result &&<h3 className='text-green-600'>Sroll up to see the solution</h3>} 
-    
- 
-          
+{result &&<h3 className='text-green-600'>Sroll up to see the solution</h3>} 
+           
         </div>
     );
 }

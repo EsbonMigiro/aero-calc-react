@@ -2,16 +2,33 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 export function NavigationBar() {
-  const [selectedUnit, setSelectedUnit] = useState('EAR 406');
+  const [selectedUnit, setSelectedUnit] = useState('EAR...');
   const detailsRef = useRef(null);
 
-  const handleUnitClick406 = () => {
-    setSelectedUnit('EAR 406');
+
+  const handleUnitClick409a = () => {
+    setSelectedUnit('EAR 409a');
+  };
+  const handleUnitClick409b = () => {
+    setSelectedUnit('EAR 409b');
+  };
+  const handleUnitClick409c = () => {
+    setSelectedUnit('EAR 409c');
+  };
+  const handleUnitClick409d = () => {
+    setSelectedUnit('EAR 409d');
+  };
+  const handleUnitClick411a = () => {
+    setSelectedUnit('EAR 411a');
+  };
+  const handleUnitClick411b = () => {
+    setSelectedUnit('EAR 411b');
+  };
+  const handleUnitClick411c = () => {
+    setSelectedUnit('EAR 411c');
   };
 
-  const handleUnitClick407 = () => {
-    setSelectedUnit('EAR 407');
-  };
+ 
  
   return (
     <div>
@@ -32,24 +49,44 @@ export function NavigationBar() {
   <li>
     <details open>
       <summary>
-       EAR 407
+       EAR 409
       </summary>
       <ul>
 
       <li
-            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 407' ? 'text-primary' : 'text-neutral-content'}`}
-            onClick={handleUnitClick407}
+            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 409a' ? 'text-primary' : 'text-neutral-content'}`}
+            onClick={handleUnitClick409a}
           >
-            <Link to="/EAR411/machinetool">Machine Tool</Link>
+            <Link to="/EAR409a/solidCircularBar">Q.2 SolidCircularBar</Link>
           </li>
 
-        <li
-            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 407' ? 'text-primary' : 'text-neutral-content'}`}
-            onClick={handleUnitClick407}
+   
+          <li
+            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 409b' ? 'text-primary' : 'text-neutral-content'}`}
+            onClick={handleUnitClick409b}
           >
-            <Link to="/411">Coming soon</Link>
+            <Link to="/EAR409b/AircratLandingGround">Q.3 AircraftLGround</Link>
           </li>
-      
+
+
+          <li
+            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 409c' ? 'text-primary' : 'text-neutral-content'}`}
+            onClick={handleUnitClick409c}
+          >
+            <Link to="/EAR409c/AircratLandingCarrier">Q.4 AircraftLCarrier</Link>
+          </li>
+          
+          <li
+            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 409d' ? 'text-primary' : 'text-neutral-content'}`}
+            onClick={handleUnitClick409d}
+          >
+            <Link to="/EAR409d/BMBendingMoment">Q.5 BMBendMoment</Link>
+          </li>
+
+
+
+
+        
         <li>
         </li>
       </ul>
@@ -64,19 +101,41 @@ export function NavigationBar() {
   <li>
     <details open>
       <summary>
-       EAR .
+       EAR 411
       </summary>
       <ul>
-        
-        <li
-            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 406' ? 'text-primary' : 'text-neutral-content'}`}
-            onClick={handleUnitClick406}
+
+
+      <li
+            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 411a' ? 'text-primary' : 'text-neutral-content'}`}
+            onClick={handleUnitClick411a}
           >
-            <Link to="/EAR409">Coming soon</Link>
+            <Link to="/EAR411/millingMachine">Q.1 MillingMachine</Link>
           </li>
-       
-        <li>
-        </li>
+
+                 
+          <li
+            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 411b' ? 'text-primary' : 'text-neutral-content'}`}
+            onClick={handleUnitClick411b}
+          >
+            <Link to="/EAR411/machineCantBeam">Q.2 MCantileverBeam</Link>
+          </li>
+          
+
+
+        
+      
+          <li
+            className={`cursor-pointer my-2 ${selectedUnit === 'EAR 411c' ? 'text-primary' : 'text-neutral-content'}`}
+            onClick={handleUnitClick411c}
+          >
+            <Link to="/EAR411/machine">Q.3 MachineTool</Link>
+          </li>
+          
+         
+
+
+
       </ul>
     </details>
   </li>
